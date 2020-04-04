@@ -18,6 +18,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { EntrypageComponent } from './entrypage/entrypage.component';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { PaymentComponent } from './payment/payment.component';
+import { TrackOrderComponent } from './track-order/track-order.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +39,14 @@ import { CommonModule } from '@angular/common';
     ProductDetailsComponent,
     SignUpComponent,
     TopBarComponent,
-    UserCartComponent
+    UserCartComponent,
+    AboutUsComponent,
+    ContactUsComponent,
+    WishlistComponent,
+    EntrypageComponent,
+    TermsConditionsComponent,
+    PaymentComponent,
+    TrackOrderComponent
   ],
   imports: [
     BrowserModule,

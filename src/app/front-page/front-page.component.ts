@@ -49,7 +49,6 @@ export class FrontPageComponent implements OnInit {
     return this.service.checkLogin();
   }
 
-  
  login()
  {
   this.router.navigate(['/login']);

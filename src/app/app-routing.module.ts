@@ -8,6 +8,13 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { UserCartComponent } from './user-cart/user-cart.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { HistoryComponent } from './history/history.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { PaymentComponent } from './payment/payment.component';
+import { TrackOrderComponent } from './track-order/track-order.component';
+import { EntrypageComponent } from './entrypage/entrypage.component';
 
 const routes: Routes = [
   
@@ -19,6 +26,13 @@ const routes: Routes = [
  {path : 'cart' , component : UserCartComponent},
  {path : 'profile' , component : MyprofileComponent},
  {path : 'history' , component : HistoryComponent},
+ {path : 'about' , component : AboutUsComponent},
+ {path : 'contact' , component : ContactUsComponent},
+ {path : 'terms' , component : TermsConditionsComponent},
+ {path : 'wishlist' , component : WishlistComponent},
+ {path : 'payment' , component : PaymentComponent},
+ {path : 'track' , component : TrackOrderComponent},
+ {path : 'entry' , component : EntrypageComponent},
  {path:'',redirectTo: "/home" , pathMatch: 'full'}
 ];
 
