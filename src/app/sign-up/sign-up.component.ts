@@ -4,6 +4,8 @@ import { AppService } from "../app.service";
 import { Route, Router } from "@angular/router";
 import { AuthenticationService } from "../authentication.service";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { BlockingProxy } from 'blocking-proxy';
+declare var $: any;
 @Component({
   selector: "app-sign-up",
   templateUrl: "./sign-up.component.html",
@@ -23,6 +25,7 @@ export class SignUpComponent implements OnInit {
   email;
   password;
   address;
+  otp;
   isSeller : boolean;
   url = "http://localhost:10083/api/user";
 
@@ -60,20 +63,49 @@ export class SignUpComponent implements OnInit {
           phone: this.phone,
           password: this.password,
           email: this.email,
-          seller: this.isSeller
         };
-        console.log(this.isSeller);
         this.httpClient.post(this.url, json).subscribe(res => {
           console.log(json);
           if(res){
             this.alert=true;
-            this.router.navigate(["/login"]);
+            this.showModal();
           }
           else{
             this.emailused=true;
-            
           }
         });
+    }
+
+    showModal() {
+      console.log("fjsdb");
+      $('#myModal').modal('show');
+    }
+    
+    checkOtp()
+    {
+      let getOTP = "http://localhost:10083/api/validateUser/sendOTP";
+      var otp;
+      let json = {
+        otp: this.otp
+      };
+      this.httpClient.post(getOTP, json).subscribe((res: any) => {
+
+        if (parseInt(otp) === parseInt(res)) {
+
+          this.httpClient.post(this.url, json).subscribe((res: any) => {
+            if (res) {
+              this.router.navigate(["/login"]);
+            } else {
+              alert("User already exist.");
+            }
+          });
+        }
+        else{
+          alert("OTP is wrong");
+        }
+      },error=>{
+        alert("Email not verified");
+      });
     }
 
   
@@ -100,3 +132,4 @@ export class SignUpComponent implements OnInit {
     this.router.navigate(["/products"]);
   }
 }
+
