@@ -27,7 +27,7 @@ export class SignUpComponent implements OnInit {
   address;
   otp;
   isSeller : boolean;
-  url = "http://localhost:10083/api/user";
+  url = "http://localhost:10083/api/sendOTP";
 
   registerForm: FormGroup;
   submitted = false;
@@ -56,46 +56,43 @@ export class SignUpComponent implements OnInit {
         // stop here if form is invalid
         if (this.registerForm.invalid) {
             return;
-        }        
-        let json = {
-          name: this.name,
-          address: this.address,
-          phone: this.phone,
-          password: this.password,
-          email: this.email,
-        };
-        this.httpClient.post(this.url, json).subscribe(res => {
-          console.log(json);
-          if(res){
-            this.alert=true;
-            this.showModal();
-          }
-          else{
-            this.emailused=true;
-          }
-        });
+        }    
+        else
+        {
+          let json={
+            email : this.email};
+            this.httpClient.post(this.url,json+"").subscribe((res: any)=>{
+                console.log("otp sent");
+            }
+            );
+        } 
+ 
     }
 
-    showModal() {
-      console.log("fjsdb");
-      $('#myModal').modal('show');
-    }
+  
     
-    checkOtp()
+    checkOtp() 
     {
-      let getOTP = "http://localhost:10083/api/validateUser/sendOTP";
+      let signup = "http://localhost:10083/api/user";
       var otp;
       let json = {
-        otp: this.otp
+        name: this.name,
+        address: this.address,
+        phone: this.phone,
+        password: this.password,
+        email: this.email,
       };
-      this.httpClient.post(getOTP, json).subscribe((res: any) => {
 
+      let getOTP = "http://localhost:8080/signup/sendOTP"; 
+      otp = this.otp;
+      console.log(this.otp);
+      this.httpClient.post(getOTP, json).subscribe((res: any) => {
         if (parseInt(otp) === parseInt(res)) {
 
-          this.httpClient.post(this.url, json).subscribe((res: any) => {
+          this.httpClient.post(signup, json).subscribe((res: any) => {
             if (res) {
               this.router.navigate(["/login"]);
-            } else {
+            } else { 
               alert("User already exist.");
             }
           });
@@ -107,9 +104,6 @@ export class SignUpComponent implements OnInit {
         alert("Email not verified");
       });
     }
-
-  
-  
 
   
   url1 = "http://localhost:10083/logout/logout";
